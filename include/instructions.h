@@ -1,22 +1,10 @@
+#include<map>
+
 enum InstructionType {
     R_TYPE,
     I_TYPE,
     S_TYPE,
     B_TYPE,
-};
-
-struct InstructionInfo {
-    InstructionType type,
-    uint32_t opcode,
-    uint32_t funct3,
-    uint32_t funct7,
-};
-
-enum InstructionType {
-    R_TYPE,
-    I_TYPE,
-    S_TYPE,
-    B_TYPE
 };
 
 struct InstructionInfo {
@@ -26,7 +14,7 @@ struct InstructionInfo {
     uint32_t funct7;
 };
 
-map<string, InstructionInfo> instructionTable = {
+std::map<std::string, InstructionInfo> instructionTable = {
     // R-type (opcode 0x33)
     {"add",  {R_TYPE, 0x33, 0x0, 0x00}},
     {"sub",  {R_TYPE, 0x33, 0x0, 0x20}},

@@ -1,5 +1,6 @@
 #include "../include/encoder.h"
 #include "../include/instructions.h"
+#include<iostream>
 
 using namespace std;
 
