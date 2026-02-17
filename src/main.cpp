@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-
+#include <vector>
+#include "lexer.h"
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -30,5 +31,12 @@ int main(int argc, char* argv[]) {
         outputFile = "output.hex";
     }
 
-    cout << inputFile << " " << outputFile;
+    cout << inputFile << " " << outputFile << "\n";
+
+    string instruction = "addi x0, x1, x4";
+
+    vector<string> tokens = lexer(instruction);
+    for (string token : tokens) {
+        cout << token << " ";
+    }
 }
