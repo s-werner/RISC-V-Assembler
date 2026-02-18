@@ -1,4 +1,5 @@
 #include <map>
+#include <cstdint>
 
 enum InstructionType {
     R_TYPE,
