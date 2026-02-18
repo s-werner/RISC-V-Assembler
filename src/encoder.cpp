@@ -75,30 +75,51 @@ uint32_t encodeIType (InstructionInfo info, vector<string> tokens) {
     uint32_t instruction = 0;
     vector<uint32_t> registers;
 
-    if (tokens.size() != 4) {
-        cerr << "Invalid number of tokens: " << tokens.size() << endl;
-        return 0;
+    
+
+    if (info.opcode == 0x03) { // lw
+        if (tokens.size() != 3) {
+            cerr << "Invalid number of tokens: " << tokens.size() << endl;
+            return 0;
+        }
+
+        uint32_t rd = parseRegister(tokens[1]);
+        OffsetRegister offReg = parseOffsetRegister(tokens[2]);
+        int32_t immediate = offReg.offset;
+
+        instruction |= info.opcode;
+        instruction |= (rd << 7);
+        instruction |= (info.funct3 << 12);
+        instruction |= (offReg.reg << 15);
+        instruction |= ((immediate & 0xFFF) << 20);
+
+        return instruction;
+    } else {
+        if (tokens.size() != 4) {
+            cerr << "Invalid number of tokens: " << tokens.size() << endl;
+            return 0;
+        }
+
+        for(int i = 1; i < tokens.size()-1; i++) {
+            uint32_t parsedRegister = parseRegister(tokens[i]);
+            registers.push_back(parsedRegister);
+        }
+
+        if (registers.size() != 2) {
+            cerr << "Invalid number of registers: " << registers.size();
+            return 0;
+        }
+
+        int32_t immediate = stoi(tokens.back());
+
+        instruction |= info.opcode;
+        instruction |= (registers[0] << 7);
+        instruction |= (info.funct3 << 12);
+        instruction |= (registers[1] << 15);
+        instruction |= ((immediate & 0xFFF) << 20);
+
+        return instruction;
     }
-
-    for(int i = 1; i < tokens.size()-1; i++) {
-        uint32_t parsedRegister = parseRegister(tokens[i]);
-        registers.push_back(parsedRegister);
-    }
-
-    if (registers.size() != 2) {
-        cerr << "Invalid number of registers: " << registers.size();
-        return 0;
-    }
-
-    int32_t immediate = stoi(tokens.back());
-
-    instruction |= info.opcode;
-    instruction |= (registers[0] << 7);
-    instruction |= (info.funct3 << 12);
-    instruction |= (registers[1] << 15);
-    instruction |= ((immediate & 0xFFF) << 20);
-
-    return instruction;
 }
 
 uint32_t encodeSType (InstructionInfo info, vector<string> tokens) {
