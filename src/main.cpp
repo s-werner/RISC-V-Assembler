@@ -58,10 +58,15 @@ int main(int argc, char* argv[]) {
     }
 
     ofstream outputFile(outputFilePath);
+    ofstream rawFile("./raw.hex");
     for (int i = 0; i < encodedInstructions.size(); i++) {
         outputFile << "instr_mem[" << i << "] = 32'h" 
                 << hex << setfill('0') << setw(8) 
                 << encodedInstructions[i] 
                 << ";" << endl;
+    }
+    for (int i = 0; i < encodedInstructions.size(); i++) {
+        rawFile << hex << setfill('0') << setw(8) 
+                << encodedInstructions[i] << endl;
     }
 }
