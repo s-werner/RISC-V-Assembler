@@ -1,6 +1,8 @@
-add x1, x2, x3
-sub x4, x5, x6
-sll x7, x8, x9
-lw x10, 8(x11)
-sw x12, 16(x13)
-beq x14, x15, 4
+addi x1, x0, 5
+addi x10, x0, 0
+addi x1, x1, -1
+add x10, x10, x1
+addi x2, x0, 0
+beq x1, x2, 8
+beq x0, x0, -16
+add x11, x0, x10

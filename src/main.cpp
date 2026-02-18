@@ -40,6 +40,9 @@ int main(int argc, char* argv[]) {
     vector<string> instructions;
 
     while (getline(inputFile, line)) {
+        line.erase(0, line.find_first_not_of(" \t\r\n"));
+        line.erase(line.find_last_not_of(" \t\r\n") + 1);
+        
         if (!line.empty()) {
             instructions.push_back(line);
         }
@@ -60,7 +63,7 @@ int main(int argc, char* argv[]) {
     ofstream outputFile(outputFilePath);
     ofstream rawFile("./raw.hex");
     for (int i = 0; i < encodedInstructions.size(); i++) {
-        outputFile << "instr_mem[" << i << "] = 32'h" 
+        outputFile << "uut.instr_mem.instr_mem[" << i << "] = 32'h" 
                 << hex << setfill('0') << setw(8) 
                 << encodedInstructions[i] 
                 << ";" << endl;
