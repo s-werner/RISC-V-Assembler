@@ -2,7 +2,10 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <iomanip>
 #include "lexer.h"
+#include "encoder.h"
+
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -33,10 +36,20 @@ int main(int argc, char* argv[]) {
 
     cout << inputFile << " " << outputFile << "\n";
 
-    string instruction = "addi x0, x1, x4";
+    vector<string> instructions = {
+        "sra x0, x1, x4",
+        "sw x1, 4(x4)",
+        "beq x1 x2 4",
+    };
 
-    vector<string> tokens = lexer(instruction);
-    for (string token : tokens) {
-        cout << token << " ";
+    for (int i = 0; i < instructions.size(); i++) {
+        vector<string> tokens = lexer(instructions[i]);
+        for (string token : tokens) {
+            cout << token << " ";
+        }
+
+        uint32_t encoded = encode(tokens);
+        cout << "\nEncoded instruction: 0x" << std::hex << encoded << std::dec << "\n";
+        cout << hex << setfill('0') << setw(8) << instructions[i] << endl;
     }
 }
