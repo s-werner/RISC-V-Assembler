@@ -1,7 +1,8 @@
-#include "../include/encoder.h"
-#include "../include/instructions.h"
 #include <iostream>
 #include <sstream>
+
+#include "../include/encoder.h"
+#include "../include/instructions.h"
 
 using namespace std;
 

@@ -3,6 +3,7 @@
 #include <cstring>
 #include <vector>
 #include <iomanip>
+
 #include "lexer.h"
 #include "encoder.h"
 

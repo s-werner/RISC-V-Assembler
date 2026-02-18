@@ -1,4 +1,4 @@
-#include<map>
+#include <map>
 
 enum InstructionType {
     R_TYPE,
