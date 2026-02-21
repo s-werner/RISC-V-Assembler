@@ -42,8 +42,13 @@ int main(int argc, char* argv[]) {
     while (getline(inputFile, line)) {
         line.erase(0, line.find_first_not_of(" \t\r\n"));
         line.erase(line.find_last_not_of(" \t\r\n") + 1);
-        
-        if (!line.empty()) {
+
+        if (line.empty()) continue;
+            
+        bool isComment = (line[0] == '#') || 
+                         (line.size() >= 2 && line[0] == '/' && line[1] == '/');
+
+        if (!isComment) {
             instructions.push_back(line);
         }
     }
