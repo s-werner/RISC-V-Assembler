@@ -1,4 +1,5 @@
 #include <map>
+#include <cstdint>
 
 enum InstructionType {
     R_TYPE,
@@ -26,6 +27,14 @@ std::map<std::string, InstructionInfo> instructionTable = {
     {"sra",  {R_TYPE, 0x33, 0x5, 0x20}},
     {"or",   {R_TYPE, 0x33, 0x6, 0x00}},
     {"and",  {R_TYPE, 0x33, 0x7, 0x00}},
+    
+    // I-type ALU (opcode 0x13)
+    {"addi",  {I_TYPE, 0x13, 0x0, 0x00}},
+    {"slti",  {I_TYPE, 0x13, 0x2, 0x00}},
+    {"sltiu", {I_TYPE, 0x13, 0x3, 0x00}},
+    {"xori",  {I_TYPE, 0x13, 0x4, 0x00}},
+    {"ori",   {I_TYPE, 0x13, 0x6, 0x00}},
+    {"andi",  {I_TYPE, 0x13, 0x7, 0x00}},
     
     // I-type loads (opcode 0x03)
     {"lb",  {I_TYPE, 0x03, 0x0, 0x00}},

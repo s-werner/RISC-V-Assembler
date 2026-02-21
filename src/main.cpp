@@ -31,20 +31,25 @@ int main(int argc, char* argv[]) {
         cerr << "Error: No input file";
         return 1;
     }
-
     if (outputFilePath.empty()) {
         outputFilePath = "output.hex";
     }
 
-    cout << inputFilePath << " " << outputFilePath << "\n";
+    ifstream inputFile(inputFilePath);
+    string line;
+    vector<string> instructions;
+
+    while (getline(inputFile, line)) {
+        line.erase(0, line.find_first_not_of(" \t\r\n"));
+        line.erase(line.find_last_not_of(" \t\r\n") + 1);
+        
+        if (!line.empty()) {
+            instructions.push_back(line);
+        }
+    }
+    inputFile.close();
 
     vector<uint32_t> encodedInstructions;
-    vector<string> instructions = {
-        "sra x0, x1, x4",
-        "sw x1, 4(x4)",
-        "beq x1 x2 4",
-    };
-
     for (int i = 0; i < instructions.size(); i++) {
         vector<string> tokens = lexer(instructions[i]);
         uint32_t encoded = encode(tokens);
@@ -56,10 +61,15 @@ int main(int argc, char* argv[]) {
     }
 
     ofstream outputFile(outputFilePath);
+    ofstream rawFile("./raw.hex");
     for (int i = 0; i < encodedInstructions.size(); i++) {
-        outputFile << "instr_mem[" << i << "] = 32'h" 
+        outputFile << "uut.instr_mem.instr_mem[" << i << "] = 32'h" 
                 << hex << setfill('0') << setw(8) 
                 << encodedInstructions[i] 
                 << ";" << endl;
+    }
+    for (int i = 0; i < encodedInstructions.size(); i++) {
+        rawFile << hex << setfill('0') << setw(8) 
+                << encodedInstructions[i] << endl;
     }
 }

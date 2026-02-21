@@ -1,3 +1,8 @@
-instr_mem[0] = 32'h4040d033;
-instr_mem[1] = 32'h00122223;
-instr_mem[2] = 32'h00208263;
+uut.instr_mem.instr_mem[0] = 32'h00500093;
+uut.instr_mem.instr_mem[1] = 32'h00000513;
+uut.instr_mem.instr_mem[2] = 32'hfff08093;
+uut.instr_mem.instr_mem[3] = 32'h00150533;
+uut.instr_mem.instr_mem[4] = 32'h00000113;
+uut.instr_mem.instr_mem[5] = 32'h00208463;
+uut.instr_mem.instr_mem[6] = 32'hfe0008e3;
+uut.instr_mem.instr_mem[7] = 32'h00a005b3;
